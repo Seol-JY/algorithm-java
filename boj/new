@@ -1,0 +1,50 @@
+#!/bin/bash
+
+read -p "백준 문제 번호를 입력해주세요: " number
+
+
+html_code=$(curl -s "https://www.acmicpc.net/problem/$number" \
+    -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36')
+
+title=$(echo "$html_code" | grep -o '<span id="problem_title">[^<]*</span>' | sed 's/<[^>]*>//g')
+
+while [ -z "$title" ]; do
+    echo "문제를 찾을 수 없습니다. 올바른 문제 번호를 입력해주세요."
+    read -p "백준 문제 번호를 입력해주세요: " number
+    html_code=$(curl -s "https://www.acmicpc.net/problem/$number" \
+        -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36')
+    title=$(echo "$html_code" | grep -o '<span id="problem_title">[^<]*</span>' | sed 's/<[^>]*>//g')
+done
+
+echo "제목: $title"
+directory="./p$number"
+
+mkdir -p "$directory/src"
+
+cat <<EOF > "$directory/src/Main.java"
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+/*
+    solved BAEKJOON #$number $title
+    url : https://www.acmicpc.net/problem/$number
+*/
+
+public class Main throws IOException {
+    public static void main(String[] args) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+    }
+}
+EOF
+
+echo "스크립트 실행 완료"
+cd "$directory"
+idea .
+
