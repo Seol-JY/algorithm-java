@@ -34,8 +34,8 @@ import java.util.StringTokenizer;
     url : https://www.acmicpc.net/problem/$number
 */
 
-public class Main throws IOException {
-    public static void main(String[] args) {
+public class Main {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
