@@ -17,11 +17,11 @@ while [ -z "$title" ]; do
 done
 
 echo "제목: $title"
-directory="./p$number"
+# directory="./p$number"
 
-mkdir -p "$directory/src"
+# mkdir -p "$directory/src"
 
-cat <<EOF > "$directory/src/Main.java"
+cat <<EOF > "p$number.java"
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.*;
@@ -35,7 +35,7 @@ import java.util.StringTokenizer;
     url : https://www.acmicpc.net/problem/$number
 */
 
-public class Main {
+public class p$number {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -46,6 +46,5 @@ public class Main {
 EOF
 
 echo "스크립트 실행 완료"
-cd "$directory"
-idea .
+code p$number.java
 
